@@ -10,7 +10,8 @@ char* read_output_row(int row)
     FILE *in;
     int looper = 0;
 	in = fopen ("/home/c/tests/cu/testsuites/regressions/tmp.testSuite_compile.out","r");  /* open the file for reading */
-
+	
+	 fgets(line, 100, in); // throw out each line that is not needed
 
      while (looper <= row)
      {
@@ -73,7 +74,7 @@ TEST(testFunction2)
     struct textmatrix test_output;
     test_output = process_output();
 
-for(loopout=0;loopout<NUM*8;loopout++)
+for(loopout=1;loopout<NUM*8;loopout++)
   { 
 	for(looper=0;looper<NUM*8;looper++)
 	{	
