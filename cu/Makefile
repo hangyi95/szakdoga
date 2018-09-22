@@ -1,4 +1,4 @@
-
+CFLAGS=-std99
 CC ?= gcc
 PYTHON ?= python
 

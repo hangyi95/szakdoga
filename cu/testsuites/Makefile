@@ -1,11 +1,12 @@
 CFLAGS=-std=c99
+CFLAGS=-Wl,-etestmain
 
 CC ?= gcc
 PYTHON ?= python
 
 TEST_OBJS = test.o sakk.o
 
-all: test test-segfault
+all: test 
 	mkdir -p regressions
 	touch regressions/testSuiteName.out
 	touch regressions/testSuiteName.err
@@ -19,17 +20,10 @@ all: test test-segfault
 	touch regressions/testSuiteTest2.err
 	-./test
 	-cd regressions && $(PYTHON) ../../cu-check-regressions
-	@echo ""
-	@echo "======= SEGFAULT: ========="
-	@echo ""
-	-./test-segfault
-	-cd regressions && $(PYTHON) ../../cu-check-regressions
+
 
 test: $(TEST_OBJS)
 	$(CC) $(CFLAGS) -o $@ $(TEST_OBJS) -L../ -lcu
-
-test-segfault: test-segfault.c
-	$(CC) $(CFLAGS) -o $@ $^ -L../ -lcu
 
 clean:
 	rm -f *.o

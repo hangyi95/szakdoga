@@ -1,31 +1,26 @@
 #include <stdio.h>
+#include <stdbool.h>
 
-int main1()
+int main()
 {
-    int m;
-    printf("Kérem egy négyzet méretét: ");
-    scanf("%d", &m);
-    printf("\n");
-
-    char c = 'X';
-    for(int i = 1; i <= 8; i = i + 1) {
-        for (int n = 1; n <= m; n = n + 1){
-            for (int k = 1; k <= 8; k = k + 1){
-                for(int j = 1; j <= m; j = j + 1){
-                    printf("%c", c);
+    printf("Adjon meg egy szelesseget: ");
+    int width,i,j,k,l;
+    scanf("%d", &width);
+    bool black = true;
+    for(i=0;i<8;i++){
+        for(j=0;j<width;j++){
+            for( k=0;k<8;k++){
+                for( l=0;l<width;l++){
+                    if(black)
+                        printf("X");
+                    else
+                        printf(".");
                 }
-                if(c == 'X')
-                    c = '.';
-                else
-                    c = 'X';
+                black = !black;
             }
             printf("\n");
         }
-        if(c == 'X')
-            c = '.';
-        else
-            c = 'X';
+        black = !black;
     }
-
     return 0;
 }
