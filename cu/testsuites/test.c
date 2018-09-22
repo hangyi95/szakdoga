@@ -7,22 +7,21 @@
 char* read_output_row(int row)
 {
     char line[100];
-    char *cptr = line;
     FILE *in;
     int looper = 0;
-    
 	in = fopen ("/home/c/tests/cu/testsuites/regressions/tmp.testSuite_compile.out","r");  /* open the file for reading */
 
-	 fgets(line, 100, in); // throw out each line that is not needed
 
-	for(looper=0;looper<row;looper++);
-	{
+     while (looper <= row)
+     {
 	 fgets(line, 100, in); // throw out each line that is not needed
-	}
+	 	 looper++;
+     }
 
 	fclose(in); // close file
-    
-    return line;
+    char *cptr = line;
+
+    return cptr;
 };
 
 struct textmatrix process_output()
@@ -30,19 +29,18 @@ struct textmatrix process_output()
     int looper = 0; 
     int rownumber = 0;
     int columnnumber = 0;       
-    char* cptr ;
-    char firstrow[100];
+    char* cptr = NULL ;
     struct textmatrix txt;
-	char*  outptr = NULL;
              
-	 for(rownumber=1;rownumber<16;rownumber++)
+	 for(rownumber=0;rownumber<NUM*8;rownumber++)
 	 {
       cptr = read_output_row(rownumber);
     
       for(columnnumber=0;columnnumber<strlen(cptr);columnnumber++)
       {
+		  {
 		  txt.text[rownumber][columnnumber]=cptr[columnnumber];
-			printf("%c",txt.text[rownumber][columnnumber]);
+	      }
 	  }
 	  columnnumber=0;
      }
@@ -70,24 +68,36 @@ TEST(testFunction2)
 {
 	//read the output of the code that has been run
 	
-	int looper =0;
-	   
+	int looper, loopout =0, loopin =0;
+	      
     struct textmatrix test_output;
     test_output = process_output();
 
-	for(looper=0;looper<16;looper++)
+for(loopout=0;loopout<NUM*8;loopout++)
+  { 
+	for(looper=0;looper<NUM*8;looper++)
 	{	
-    if (looper%4 == 0)
-    assertEquals(test_output.text[3][looper],'X')
-    if (looper%4 == 1)
-    assertEquals(test_output.text[3][looper],'X')
-    if (looper%4 == 2)
-    assertEquals(test_output.text[3][looper],'.')
-    if (looper%4 == 3)
-    assertEquals(test_output.text[3][looper],'.')
+	printf("%c",test_output.text[loopout][looper]);
+		
+	if(loopout%(NUM*2) < NUM)
+		{
+		if (looper%(NUM*2) < NUM) 
+		assertEquals(test_output.text[loopout][looper],'X');
+		if (looper%(NUM*2) >= NUM) 
+		assertEquals(test_output.text[loopout][looper],'.');
+		}
+		
+	if(loopout%(NUM*2) >= NUM)
+		{
+		if (looper%(NUM*2) < NUM) 
+		assertEquals(test_output.text[loopout][looper],'.');
+		if (looper%(NUM*2) >= NUM) 
+		assertEquals(test_output.text[loopout][looper],'X');
+		}
+    
     }
-    //assertEquals(1, 1);
-    //assertNotEquals(1, 0);
+  printf("\n");
+  }
 }
 
 TEST(testFunction3)

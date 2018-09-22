@@ -1,26 +1,37 @@
-#include <stdio.h>
-#include <stdbool.h>
+#include<stdio.h>
 
-int main()
-{
-    printf("Adjon meg egy szelesseget: ");
-    int width,i,j,k,l;
-    scanf("%d", &width);
-    bool black = true;
-    for(i=0;i<8;i++){
-        for(j=0;j<width;j++){
-            for( k=0;k<8;k++){
-                for( l=0;l<width;l++){
-                    if(black)
-                        printf("X");
-                    else
-                        printf(".");
-                }
-                black = !black;
-            }
-            printf("\n");
-        }
-        black = !black;
-    }
-    return 0;
+int main(void){
+
+     int i,j,n,k,f;
+
+     printf("Mekkora legyen egy mezo merete? ");
+     scanf("%d", &n);
+     printf("\n");
+     for(f=0;f<4;f+=1)
+            {
+          for(i=0;i<n;i+=1)
+              {
+		    for(j=0;j<4;j=j+1)
+		    {
+			for(k=0;k<n;k+=1)
+			    printf("X");
+			for(k=0;k<n;k+=1)
+			    printf(".");
+		    }
+		  printf("\n");
+	           }
+	for(i=0;i<n;i+=1)
+         {
+		for(j=0;j<4;j=j+1)
+		{
+			for(k=0;k<n;k+=1)
+			    printf(".");
+			for(k=0;k<n;k+=1)
+			    printf("X");
+		}
+		  printf("\n");
+	     }
+             }
+return 0;
+
 }
