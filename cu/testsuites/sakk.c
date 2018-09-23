@@ -4,20 +4,20 @@
 int main(void){
 
      int i,j,n,k,f;
-     char *ptr = NULL;
-  //   i=0;
-  //   for(i=0;i<50;i++)
-  //   {
-  //		 if ( (ptr = (char*)malloc(1048576)) == NULL) 
-  //		 {
-  //			 printf("Allocated memory: %d  MB\n", i);
-  //		 }
-  //	 }
-	 
-	 
+
      printf("Mekkora legyen egy mezo merete? ");
      scanf("%d", &n);
      printf("\n");
+     
+      char *ptr = NULL;
+
+     for(i=0;i<1200;i++)
+     {
+  		 ptr = (char*)malloc(1048576);
+  		 {
+  			// printf("Allocated memory: %d  MB\n", i);
+  		 }
+ 	 }
      
      for(f=0;f<4;f+=1)
             { 

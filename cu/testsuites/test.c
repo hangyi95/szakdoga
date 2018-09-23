@@ -4,50 +4,46 @@
 #include "../cu.h"
 #include "test.h"
 
-char* read_compiled_output_row(char *line, int row)
+void read_compiled_output_row(char *line, int row)
 {
     FILE *in = NULL;
     int looper = 0;
-	in = fopen ("/home/c/tests/cu/testsuites/regressions/tmp.testSuite_compile.out","r");  /* open the file for reading */
+	in = fopen ("/home/c/tests/cu/testsuites/regressions/tmp.testSuite_compile.out","rt");  /* open the file for reading */
 	
-	 fgets(line, 100, in); // throw out each line that is not needed
+	fgets(line, 100, in) ; // throw out each line that is not needed
 
      while (looper <= row)
      {
-	 fgets(line, 100, in); // throw out each line that is not needed
+	 fgets(line, 100, in) ; // throw out each line that is not needed
 	 	 looper++;
      }
 
 	fclose(in); // close file
 
-    return line;
 };
 
-char* read_given_output_row(char *line, int row)
+void read_given_output_row(char *line, int row)
 {
     FILE *in = NULL;
     int looper = 0;
-	in = fopen ("/home/c/tests/cu/testsuites/output5.txt","r");  /* open the file for reading */
+	in = fopen ("/home/c/tests/cu/testsuites/output2.txt","rt");  /* open the file for reading */
 	
 
      while (looper <= row)
      {
-	 fgets(line, 100, in); // throw out each line that is not needed
-	 	 looper++;
+	fgets(line, 100, in) ; // throw out each line that is not needed
+	 looper++;
      }
 
 	fclose(in); // close file
 
-    return line;
 };
 
-struct textmatrix process_compiled_output()
+void process_compiled_output(struct textmatrix* txt)
 {
-    int looper = 0; 
     int rownumber = 0;
     int columnnumber = 0;       
     char *line = (char *)malloc(100*sizeof(char));
-    struct textmatrix txt;
              
 	 for(rownumber=0;rownumber<NUM*8;rownumber++)
 	 {
@@ -56,22 +52,19 @@ struct textmatrix process_compiled_output()
       for(columnnumber=0;columnnumber<strlen(line);columnnumber++)
       {
 		  {
-		  txt.text[rownumber][columnnumber]=line[columnnumber];
+		  txt->text[rownumber][columnnumber]=line[columnnumber];
 	      }
 	  }
 	  columnnumber=0;
      }
 	 free(line);
-	 return txt;
 };
 
-struct textmatrix process_given_output()
+void process_given_output(struct textmatrix* txt)
 {
-    int looper = 0; 
     int rownumber = 0;
     int columnnumber = 0;       
     char *line = (char *)malloc(100*sizeof(char));
-    struct textmatrix txt;
              
 	 for(rownumber=0;rownumber<NUM*8;rownumber++)
 	 {
@@ -80,19 +73,18 @@ struct textmatrix process_given_output()
       for(columnnumber=0;columnnumber<strlen(line);columnnumber++)
       {
 		  {
-		  txt.text[rownumber][columnnumber]=line[columnnumber];
+		  txt->text[rownumber][columnnumber]=line[columnnumber];
 	      }
 	  }
 	  columnnumber=0;
      }
 	 free(line);
-	 return txt;
 };
 
 
 TEST(testFunctionCompile)
 {
-	freopen("input5.txt", "r", stdin);
+	freopen("input2.txt", "r", stdin);
 	// compiling the code we want to test
   	main();
 
@@ -106,14 +98,14 @@ TEST(testFunction)
 	int loopout =0;
 	      
     struct textmatrix test_compiled_output;
-   test_compiled_output = process_compiled_output();
+    process_compiled_output(&test_compiled_output);
 
     struct textmatrix test_given_output;
-    test_given_output = process_given_output();
+    process_given_output(&test_given_output);
     
 for(loopout=1;loopout<NUM*8 +1;loopout++)
   { 
-	for(looper=0;looper<NUM*8;looper++)
+	for(looper=0;looper<NUM*8 ;looper++)
 	{	
 	printf("%c",test_given_output.text[loopout][looper]);
 		
@@ -158,6 +150,8 @@ int testmain(int argc, char *argv[])
                            regressions/tmp.testSuiteName.out
                            and stderr to regressions/tmp.testSuiteName.err
                            according to CU_SET_OUT_PREFIX called before */
+              
+
               
     return 0;
 }
