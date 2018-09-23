@@ -19,7 +19,6 @@ clean:
 	rm -f test
 	rm -f test-segfault
 	rm -f tmp.*
-	rm -rf regressions
 
 
 .PHONY: all clean

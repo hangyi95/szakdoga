@@ -408,6 +408,7 @@ static void redirect_out_err(const char *test_name)
 static void redirect_test_out_err(const char *test_suite, const char *test)
 {
     char buf[256];
+    int num=1;
 
     if (test != NULL){
         snprintf(buf, 255, "%stmp.%s.%s.out", cu_out_prefix, test_suite, test);
@@ -428,6 +429,8 @@ static void redirect_test_out_err(const char *test_suite, const char *test)
         perror("Redirecting of stderr failed");
         exit(-1);
     }
+
+    
 }
 
 static void close_out_err(void)

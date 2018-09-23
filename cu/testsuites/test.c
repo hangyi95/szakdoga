@@ -27,7 +27,7 @@ char* read_given_output_row(char *line, int row)
 {
     FILE *in;
     int looper = 0;
-	in = fopen ("/home/c/tests/cu/testsuites/regressions/output2.txt","r");  /* open the file for reading */
+	in = fopen ("/home/c/tests/cu/testsuites/output5.txt","r");  /* open the file for reading */
 	
 
      while (looper <= row)
@@ -88,27 +88,21 @@ struct textmatrix process_given_output()
 	 free(line);
 	 return txt;
 };
-/**
- * Test suite from imported from other file.
- */
 
-#include "sakk.h"
 
-/**
- * Definition of test function
- */
-TEST(testFunction)
+TEST(testFunctionCompile)
 {
+	freopen("input5.txt", "r", stdin);
 	// compiling the code we want to test
   	main();
 
 }
 
-TEST(testFunction2)
+TEST(testFunction)
 {
 	//read the output of the code that has been run
 	
-	int looper, loopout =0, loopin =0;
+	int looper, loopout =0;
 	      
     struct textmatrix test_compiled_output;
     test_compiled_output = process_compiled_output();
@@ -129,27 +123,22 @@ for(loopout=1;loopout<NUM*8 +1;loopout++)
   }
 }
 
-TEST(testFunction3)
-{
-	
-	
-}
 
 /**
  * Composition of tests into testsuite
  */
 TEST_SUITE(testSuite_compile)
 {
-    TEST_ADD(testFunction), /* Add test to testsuite */
+    TEST_ADD(testFunctionCompile), /* Add test to testsuite */
     TEST_SUITE_CLOSURE /* By this must end all lists of tests */
 };
 
 TEST_SUITE(testSuite_test)
 {
-    TEST_ADD(testFunction2),
-    TEST_ADD(testFunction3),
+    TEST_ADD(testFunction),
     TEST_SUITE_CLOSURE /* By this must end all lists of tests */
 };
+
 
 TEST_SUITES{
     TEST_SUITE_ADD(testSuite_compile),
@@ -168,8 +157,6 @@ int testmain(int argc, char *argv[])
                            regressions/tmp.testSuiteName.out
                            and stderr to regressions/tmp.testSuiteName.err
                            according to CU_SET_OUT_PREFIX called before */
-
-
-                           
+              
     return 0;
 }
