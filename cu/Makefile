@@ -9,7 +9,7 @@ BINDIR     ?= bin
 
 CFLAGS = -g -Wall -pedantic
 
-ENABLE_TIMER ?= no
+ENABLE_TIMER ?= yes
 
 ifeq '$(ENABLE_TIMER)' 'yes'
   CFLAGS += -DCU_ENABLE_TIMER

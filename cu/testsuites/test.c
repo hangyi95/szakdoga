@@ -6,7 +6,7 @@
 
 char* read_compiled_output_row(char *line, int row)
 {
-    FILE *in;
+    FILE *in = NULL;
     int looper = 0;
 	in = fopen ("/home/c/tests/cu/testsuites/regressions/tmp.testSuite_compile.out","r");  /* open the file for reading */
 	
@@ -25,7 +25,7 @@ char* read_compiled_output_row(char *line, int row)
 
 char* read_given_output_row(char *line, int row)
 {
-    FILE *in;
+    FILE *in = NULL;
     int looper = 0;
 	in = fopen ("/home/c/tests/cu/testsuites/output5.txt","r");  /* open the file for reading */
 	
@@ -102,10 +102,11 @@ TEST(testFunction)
 {
 	//read the output of the code that has been run
 	
-	int looper, loopout =0;
+	int looper = 0; 
+	int loopout =0;
 	      
     struct textmatrix test_compiled_output;
-    test_compiled_output = process_compiled_output();
+   test_compiled_output = process_compiled_output();
 
     struct textmatrix test_given_output;
     test_given_output = process_given_output();

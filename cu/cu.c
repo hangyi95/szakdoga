@@ -18,7 +18,6 @@
 #include <stdio.h>
 #include <string.h>
 #include <sys/wait.h>
-
 #include "cu.h"
 
 /** Declared here, because I didn't find header file where it is declared */
@@ -193,6 +192,7 @@ static void cu_run_fork(const char *ts_name, cu_test_suite_t *ts,
         /* run testsuite, messages go to fd */
         run_test_suite(ts_name, ts, test_id);
 
+
         MSG_END;
         close(fd);
 
@@ -206,6 +206,7 @@ static void cu_run_fork(const char *ts_name, cu_test_suite_t *ts,
 
         /* receive and interpret all messages */
         receive_messages();
+
 
         /* wait for children */
         wait(&status);
@@ -408,7 +409,6 @@ static void redirect_out_err(const char *test_name)
 static void redirect_test_out_err(const char *test_suite, const char *test)
 {
     char buf[256];
-    int num=1;
 
     if (test != NULL){
         snprintf(buf, 255, "%stmp.%s.%s.out", cu_out_prefix, test_suite, test);
@@ -429,7 +429,7 @@ static void redirect_test_out_err(const char *test_suite, const char *test)
         perror("Redirecting of stderr failed");
         exit(-1);
     }
-
+    
     
 }
 

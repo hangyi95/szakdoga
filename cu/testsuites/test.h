@@ -5,7 +5,6 @@
 
 struct textmatrix{
 	
-	char help[100];
 	char text[100][100];
 	
 };
