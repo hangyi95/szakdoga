@@ -1,72 +1,47 @@
 #include <stdio.h>
-#include <stdlib.h>
+
+void kirajzsakk(int sor, int oszlop, int mezo){
+    int i=1;
+
+    while(i<=sor){
+        for(int l=0; l<mezo; l++){
+            int j=1;
+            while(j<=oszlop){
+                for(int k=0; k<mezo; k++){
+                    if(i%2==1){
+                        if(j%2==1){
+                            printf("X");
+                        }else{
+                            printf(".");
+                        }
+                    }else{
+                        if(j%2==1){
+                            printf(".");
+                        }else{
+                            printf("X");
+                        }
+                    }
+                }
+                j+=mezo;
+            }
+            printf("\n");
+        }
+        i+=mezo;
+    }
+}
 
 int main()
 {
-	int i, j, k, l , f, z, h;
-    int n;
-    printf("Meret: ");
-    scanf("%d", &n);
-
-    if(n%2 != 0)
-    {
-        for( l=0; l<2; l= l+1)
-        {
-           for( f = 0; f<n; f=f+1)
-           {
-            printf("xx");
-            printf("..");
-           }
-           printf("\n");
-        }
-    }
-
-    for( i=0; i<(n/2); i=i+1)
-    {
-       int seged = 0;
-
-        if(seged != 2)
-        {
-
-
-        for( j=0; j<2; j=j+1)
-        {
-           if(seged != 2)
-
-              for( z=0; z<n; z=z+1)
-              {
-                  printf("..");
-                  printf("xx");
-              }
-              seged = seged+1;
-              printf("\n");
-
-        }
-
-
-        }
-           if(seged == 2)
-           {
-              seged = 0;
-                for( k=0; k<2; k=k+1)
-                {
-                    if(seged != 2)
-                    {
-                        for( h=0; h<n; h=h+1)
-                        {
-                            printf("xx");
-                            printf("..");
-                        }
-                        seged = seged+1;
-                        printf("\n");
-                    }
-                }
-
-           }
-
-
-    }
-
-
+    printf("Sakktabla program!\n");
+    printf("Elso feladat (ismetles kikuszoboles)\n");
+    kirajzsakk(16,16,1);
+    printf("Masodik feladat (sajat meret)\n");
+    printf("Add meg a tabla meretet: (pl.: 16) ");
+    int meret;
+    scanf("%d", &meret);
+    printf("Add meg a mezok meretet: (pl.: 3)");
+    int mezo;
+    scanf("%d", &mezo);
+    kirajzsakk(meret, meret, mezo);
     return 0;
 }

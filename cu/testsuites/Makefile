@@ -1,5 +1,5 @@
 CFLAGS=-std=c99
-CFLAGS=-Wl,-etestmain
+CFLAGS+=-Wl,-etestmain 
 
 CC ?= gcc
 PYTHON ?= python
@@ -24,7 +24,7 @@ all: test
 
 
 test: $(TEST_OBJS)
-	$(CC) $(CFLAGS) -o $@ $(TEST_OBJS) -L../ -lcu
+	$(CC)  $(CFLAGS) -o $@ $(TEST_OBJS) -L../ -lcu
 
 clean:
 	rm -f *.o
