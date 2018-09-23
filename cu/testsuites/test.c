@@ -4,9 +4,8 @@
 #include "../cu.h"
 #include "test.h"
 
-char* read_output_row(int row)
+char* read_compiled_output_row(char *line, int row)
 {
-    char line[100];
     FILE *in;
     int looper = 0;
 	in = fopen ("/home/c/tests/cu/testsuites/regressions/tmp.testSuite_compile.out","r");  /* open the file for reading */
@@ -20,35 +19,75 @@ char* read_output_row(int row)
      }
 
 	fclose(in); // close file
-    char *cptr = line;
 
-    return cptr;
+    return line;
 };
 
-struct textmatrix process_output()
+char* read_given_output_row(char *line, int row)
+{
+    FILE *in;
+    int looper = 0;
+	in = fopen ("/home/c/tests/cu/testsuites/regressions/output2.txt","r");  /* open the file for reading */
+	
+
+     while (looper <= row)
+     {
+	 fgets(line, 100, in); // throw out each line that is not needed
+	 	 looper++;
+     }
+
+	fclose(in); // close file
+
+    return line;
+};
+
+struct textmatrix process_compiled_output()
 {
     int looper = 0; 
     int rownumber = 0;
     int columnnumber = 0;       
-    char* cptr = NULL ;
+    char *line = (char *)malloc(100*sizeof(char));
     struct textmatrix txt;
              
 	 for(rownumber=0;rownumber<NUM*8;rownumber++)
 	 {
-      cptr = read_output_row(rownumber);
+      read_compiled_output_row(line,rownumber);
     
-      for(columnnumber=0;columnnumber<strlen(cptr);columnnumber++)
+      for(columnnumber=0;columnnumber<strlen(line);columnnumber++)
       {
 		  {
-		  txt.text[rownumber][columnnumber]=cptr[columnnumber];
+		  txt.text[rownumber][columnnumber]=line[columnnumber];
 	      }
 	  }
 	  columnnumber=0;
      }
-
+	 free(line);
 	 return txt;
 };
 
+struct textmatrix process_given_output()
+{
+    int looper = 0; 
+    int rownumber = 0;
+    int columnnumber = 0;       
+    char *line = (char *)malloc(100*sizeof(char));
+    struct textmatrix txt;
+             
+	 for(rownumber=0;rownumber<NUM*8;rownumber++)
+	 {
+      read_given_output_row(line,rownumber);
+    
+      for(columnnumber=0;columnnumber<strlen(line);columnnumber++)
+      {
+		  {
+		  txt.text[rownumber][columnnumber]=line[columnnumber];
+	      }
+	  }
+	  columnnumber=0;
+     }
+	 free(line);
+	 return txt;
+};
 /**
  * Test suite from imported from other file.
  */
@@ -71,31 +110,20 @@ TEST(testFunction2)
 	
 	int looper, loopout =0, loopin =0;
 	      
-    struct textmatrix test_output;
-    test_output = process_output();
+    struct textmatrix test_compiled_output;
+    test_compiled_output = process_compiled_output();
 
-for(loopout=1;loopout<NUM*8;loopout++)
+    struct textmatrix test_given_output;
+    test_given_output = process_given_output();
+    
+for(loopout=1;loopout<NUM*8 +1;loopout++)
   { 
 	for(looper=0;looper<NUM*8;looper++)
 	{	
-	printf("%c",test_output.text[loopout][looper]);
+	printf("%c",test_given_output.text[loopout][looper]);
 		
-	if(loopout%(NUM*2) < NUM)
-		{
-		if (looper%(NUM*2) < NUM) 
-		assertEquals(test_output.text[loopout][looper],'X');
-		if (looper%(NUM*2) >= NUM) 
-		assertEquals(test_output.text[loopout][looper],'.');
-		}
+	assertEquals(test_given_output.text[loopout][looper],test_compiled_output.text[loopout][looper]);
 		
-	if(loopout%(NUM*2) >= NUM)
-		{
-		if (looper%(NUM*2) < NUM) 
-		assertEquals(test_output.text[loopout][looper],'.');
-		if (looper%(NUM*2) >= NUM) 
-		assertEquals(test_output.text[loopout][looper],'X');
-		}
-    
     }
   printf("\n");
   }

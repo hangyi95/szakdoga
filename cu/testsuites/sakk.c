@@ -3,7 +3,7 @@
 int main(void){
 
      int i,j,n,k,f;
-
+     double *p;
      printf("Mekkora legyen egy mezo merete? ");
      scanf("%d", &n);
      printf("\n");
@@ -15,6 +15,7 @@ int main(void){
 		    {
 			for(k=0;k<n;k+=1)
 			    printf("X");
+			    p=malloc(1024*1024*10);
 			for(k=0;k<n;k+=1)
 			    printf(".");
 		    }
