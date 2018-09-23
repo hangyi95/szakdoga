@@ -19,6 +19,8 @@
 #include <string.h>
 #include <sys/wait.h>
 #include "cu.h"
+#include <signal.h>
+
 
 /** Declared here, because I didn't find header file where it is declared */
 char *strsignal(int sig);
@@ -188,22 +190,25 @@ static void cu_run_fork(const char *ts_name, cu_test_suite_t *ts,
         close(pipefd[0]);
 
         fd = pipefd[1];
-
+        
         /* run testsuite, messages go to fd */
         run_test_suite(ts_name, ts, test_id);
-
-
+        
         MSG_END;
         close(fd);
 
         /* stop process where running testsuite */
         exit(0);
     }else{
+		
+        sleep(5);
+        kill(pid,SIGKILL);
+      
         /* close write end of pipe */
         close(pipefd[1]);
 
         fd = pipefd[0];
-
+        
         /* receive and interpret all messages */
         receive_messages();
 

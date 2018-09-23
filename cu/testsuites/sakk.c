@@ -11,13 +11,7 @@ int main(void){
      
       char *ptr = NULL;
 
-     for(i=0;i<1200;i++)
-     {
-  		 ptr = (char*)malloc(1048576);
-  		 {
-  			// printf("Allocated memory: %d  MB\n", i);
-  		 }
- 	 }
+
      
      for(f=0;f<4;f+=1)
             { 
