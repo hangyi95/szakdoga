@@ -4,7 +4,11 @@ CFLAGS=-Wl,-etestmain
 CC ?= gcc
 PYTHON ?= python
 
-TEST_OBJS = test.o sakk.o
+SRC:=$(wildcard $(SRC_DIR)/*.c)
+OBJ:=
+OBJ:=$(SRC:$(SRC_DIR)/*.c=(OBJ_DIR/%.o)
+
+TEST_OBJS = test.o sakk.o 
 
 all: test 
 	mkdir -p regressions
@@ -25,7 +29,6 @@ test: $(TEST_OBJS)
 clean:
 	rm -f *.o
 	rm -f test
-	rm -f test-segfault
 	rm -f tmp.*
 
 

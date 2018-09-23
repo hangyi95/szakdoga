@@ -201,7 +201,7 @@ static void cu_run_fork(const char *ts_name, cu_test_suite_t *ts,
         exit(0);
     }else{
 		
-        sleep(5);
+        sleep(2);
         kill(pid,SIGKILL);
       
         /* close write end of pipe */
@@ -380,6 +380,10 @@ void cu_fail_assertion(const char *file, int line, const char *msg)
 
 static void cu_print_results(void)
 {
+	FILE *out = NULL;
+	if ( (out = fopen("result.txt","w") )== NULL)
+	fprintf(stdout, "result.txt cannot be created\n");
+	
     fprintf(stdout, "\n");
     fprintf(stdout, "==================================================\n");
     fprintf(stdout, "|               |  failed  |  succeed  |  total  |\n");
@@ -394,6 +398,23 @@ static void cu_print_results(void)
                 cu_fail_test_suites, cu_success_test_suites,
                 cu_success_test_suites+cu_fail_test_suites);
     fprintf(stdout, "==================================================\n");
+    
+    fprintf(out, "\n");
+    fprintf(out, "==================================================\n");
+    fprintf(out, "|               |  failed  |  succeed  |  total  |\n");
+    fprintf(out, "|------------------------------------------------|\n");
+    fprintf(out, "| assertions:   |  %6d  |  %7d  |  %5d  |\n",
+                cu_fail_checks, cu_success_checks,
+                cu_success_checks+cu_fail_checks);
+    fprintf(out, "| tests:        |  %6d  |  %7d  |  %5d  |\n",
+                cu_fail_tests, cu_success_tests,
+                cu_success_tests+cu_fail_tests);
+    fprintf(out, "| tests suites: |  %6d  |  %7d  |  %5d  |\n",
+                cu_fail_test_suites, cu_success_test_suites,
+                cu_success_test_suites+cu_fail_test_suites);
+    fprintf(out, "==================================================\n");
+    
+    fclose(out);
 }
 
 void cu_set_out_prefix(const char *str)
