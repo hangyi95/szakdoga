@@ -26,7 +26,7 @@ void read_given_output_row(char *line, int row)
 {
     FILE *in = NULL;
     int looper = 0;
-	in = fopen ("/home/c/tests/cu/testsuites/output2.txt","rt");  /* open the file for reading */
+	in = fopen ("/home/c/tests/cu/testsuites/output5.txt","rt");  /* open the file for reading */
 	
 
      while (looper <= row)
@@ -84,7 +84,7 @@ void process_given_output(struct textmatrix* txt)
 
 TEST(testFunctionCompile)
 {
-	freopen("input2.txt", "r", stdin);
+	freopen("input5.txt", "r", stdin);
 	// compiling the code we want to test
   	main();
 
